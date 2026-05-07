@@ -40,13 +40,12 @@ with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", ex
         * 🟡 **C (Amarillo):** Calidad media. Se recomienda un consumo moderado.
         * 🟠🔴 **D y E (Naranja - Rojo):** Alta densidad energética. Contienen niveles elevados de grasas saturadas, azúcares o sal. Consumo limitado.
         
-        *Nuestro modelo utiliza **XGBoost** entrenado con más de 86,000 registros para garantizar una precisión del 90% (AUC 0.98).*
         """)
     
     with col_img:
         # Imagen explicativa del semáforo
         st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Nutri-score-logotype.svg/1200px-Nutri-score-logotype.svg.png", 
-                 caption="Escala Oficial de Calidad Nutricional")
+             caption="Escala Oficial de Calidad Nutricional")
 
 # 4. FUNCIÓN DE VALIDACIÓN DE DECIMALES (Formato 0.5 obligatorio)
 def get_clean_input(label, default):
