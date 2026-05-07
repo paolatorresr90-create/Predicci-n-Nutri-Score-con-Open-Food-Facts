@@ -43,10 +43,12 @@ with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", ex
         """)
     
     with col_img:
+        try:
+            st.image("infografia.png", caption="Escala Oficial de Calidad Nutricional")
+        except:
+           st.warning("⚠️ No se pudo cargar la infografía local.")
         # Imagen explicativa del semáforo
-        st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Nutri-score-logotype.svg/1200px-Nutri-score-logotype.svg.png", 
-             caption="Escala Oficial de Calidad Nutricional")
-
+        
 # 4. FUNCIÓN DE VALIDACIÓN DE DECIMALES (Formato 0.5 obligatorio)
 def get_clean_input(label, default):
     val_str = st.sidebar.text_input(label, value=str(default))
