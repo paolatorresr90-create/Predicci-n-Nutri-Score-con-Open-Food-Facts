@@ -28,25 +28,21 @@ model, features_20 = load_assets()
 # 3. CABECERA Y CONTEXTO EDUCATIVO
 st.title("🚦 Nutri-Score AI Predictor")
 st.markdown("### Clasificación Nutricional Automatizada mediante Machine Learning")
-
+  
 with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", expanded=True):
     col_text, col_img = st.columns([1.5, 1])
     
     with col_text:
         st.markdown("""
         El **Nutri-Score** ayuda a comparar la calidad nutricional de los alimentos por cada 100g:
-        
-        * 🟢 **A y B (Verde):** Alta densidad nutricional. Base de una dieta saludable.
-        * 🟡 **C (Amarillo):** Calidad media. Se recomienda un consumo moderado.
-        * 🟠🔴 **D y E (Naranja - Rojo):** Alta densidad energética. Contienen niveles elevados de grasas saturadas, azúcares o sal. Consumo limitado.
-        
+        * 🟢 **A y B:** Alta densidad nutricional.
+        * 🟡 **C:** Calidad media.
+        * 🟠🔴 **D y E:** Consumo limitado.
         """)
     
-   with col_img:
-        # Usamos una URL directa de Wikimedia que es el estándar para estos despliegues
-        st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Nutri-score-logotype.svg/800px-Nutri-score-logotype.svg.png", 
-                 use_container_width=True)
-        st.caption("Escala oficial Nutri-Score")
+    with col_img:
+        # URL oficial para evitar errores de carga local
+        st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Nutri-score-logotype.svg/800px-Nutri-score-logotype.svg.png")
         
 # 4. FUNCIÓN DE VALIDACIÓN DE DECIMALES (Formato 0.5 obligatorio)
 def get_clean_input(label, default):
