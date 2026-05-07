@@ -40,9 +40,16 @@ with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", ex
         * 🟠🔴 **D y E:** Consumo limitado.
         """)
     
-    with col_img:
-        # URL oficial para evitar errores de carga local
-        st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Nutri-score-logotype.svg/800px-Nutri-score-logotype.svg.png")
+with col_img:
+    st.markdown("""
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+            <div style="width: 50px; height: 50px; background-color: #008145; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">A</div>
+            <div style="width: 50px; height: 50px; background-color: #85BB2F; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">B</div>
+            <div style="width: 50px; height: 50px; background-color: #FECB02; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">C</div>
+            <div style="width: 50px; height: 50px; background-color: #EE8100; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">D</div>
+            <div style="width: 50px; height: 50px; background-color: #E63E11; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">E</div>
+        </div>
+    """, unsafe_allow_html=True)
         
 # 4. FUNCIÓN DE VALIDACIÓN DE DECIMALES (Formato 0.5 obligatorio)
 def get_clean_input(label, default):
