@@ -30,35 +30,24 @@ st.title("🚦 Nutri-Score AI Predictor")
 st.markdown("### Clasificación Nutricional Automatizada mediante Machine Learning")
   
 with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", expanded=True):
-    # Usamos HTML/CSS para crear el diseño horizontal con flechas
+    # El truco es usar st.markdown con unsafe_allow_html=True
     st.markdown("""
-        <div style="font-family: sans-serif; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center;">
+        <div style="font-family: sans-serif; background-color: #ffffff; padding: 20px; border-radius: 10px; text-align: center; border: 1px solid #ddd;">
+            <p style="margin: 0 0 15px 0; font-weight: bold; color: #333;">Rango de Calidad Nutricional (por 100g)</p>
             
-            <p style="margin: 0 0 15px 0; font-weight: bold; color: #333; font-size: 1.1em;">Rango de Calidad Nutricional (por 100g)</p>
-            
-            <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 10px; align-items: center;">
-                <div style="width: 55px; height: 55px; background-color: #008145; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5em; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">A</div>
-                <div style="width: 55px; height: 55px; background-color: #85BB2F; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5em; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">B</div>
-                <div style="width: 55px; height: 55px; background-color: #FECB02; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5em; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">C</div>
-                <div style="width: 55px; height: 55px; background-color: #EE8100; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5em; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">D</div>
-                <div style="width: 55px; height: 55px; background-color: #E63E11; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5em; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">E</div>
+            <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 10px;">
+                <div style="width: 50px; height: 50px; background-color: #008145; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2em;">A</div>
+                <div style="width: 50px; height: 50px; background-color: #85BB2F; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2em;">B</div>
+                <div style="width: 50px; height: 50px; background-color: #FECB02; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2em;">C</div>
+                <div style="width: 50px; height: 50px; background-color: #EE8100; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2em;">D</div>
+                <div style="width: 50px; height: 50px; background-color: #E63E11; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2em;">E</div>
             </div>
             
-            <div style="display: flex; justify-content: space-between; width: 100%; max-width: 380px; margin: 0 auto; padding-top: 5px;">
-                <div style="display: flex; align-items: center; color: #008145;">
-                    <div style="width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-right: 10px solid #008145;"></div>
-                    <div style="width: 130px; height: 2px; background-color: #008145;"></div>
-                    <p style="margin: 0; padding-left: 5px; font-weight: bold; font-size: 0.9em;">Más saludable</p>
-                </div>
-                
-                <div style="display: flex; align-items: center; color: #E63E11; flex-direction: row-reverse;">
-                    <div style="width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-left: 10px solid #E63E11;"></div>
-                    <div style="width: 130px; height: 2px; background-color: #E63E11;"></div>
-                    <p style="margin: 0; padding-right: 5px; font-weight: bold; font-size: 0.9em;">Menos saludable</p>
-                </div>
+            <div style="display: flex; justify-content: space-between; padding: 0 10px;">
+                <span style="color: #008145; font-weight: bold; font-size: 0.8em;">← Más saludable</span>
+                <span style="color: #E63E11; font-weight: bold; font-size: 0.8em;">Menos saludable →</span>
             </div>
         </div>
-        <br>
     """, unsafe_allow_html=True)
         
 # 4. FUNCIÓN DE VALIDACIÓN DE DECIMALES (Formato 0.5 obligatorio)
