@@ -30,22 +30,21 @@ st.title("🚦 Nutri-Score AI Predictor")
 st.markdown("### Clasificación Nutricional Automatizada mediante Machine Learning")
   
 with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", expanded=True):
-    # El truco es usar st.markdown con unsafe_allow_html=True
     st.markdown("""
-        <div style="font-family: sans-serif; background-color: #ffffff; padding: 20px; border-radius: 10px; text-align: center; border: 1px solid #ddd;">
-            <p style="margin: 0 0 15px 0; font-weight: bold; color: #333;">Rango de Calidad Nutricional (por 100g)</p>
+        <div style="font-family: sans-serif; background-color: #ffffff; padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #e0e0e0; box-shadow: 0px 2px 5px rgba(0,0,0,0.05);">
+            <p style="margin: 0 0 15px 0; font-weight: bold; color: #444; font-size: 1.1em;">Rango de Calidad Nutricional (por 100g)</p>
             
-            <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 10px;">
-                <div style="width: 50px; height: 50px; background-color: #008145; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2em;">A</div>
-                <div style="width: 50px; height: 50px; background-color: #85BB2F; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2em;">B</div>
-                <div style="width: 50px; height: 50px; background-color: #FECB02; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2em;">C</div>
-                <div style="width: 50px; height: 50px; background-color: #EE8100; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2em;">D</div>
-                <div style="width: 50px; height: 50px; background-color: #E63E11; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2em;">E</div>
+            <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 15px;">
+                <div style="width: 55px; height: 55px; background-color: #008145; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.4em; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">A</div>
+                <div style="width: 55px; height: 55px; background-color: #85BB2F; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.4em; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">B</div>
+                <div style="width: 55px; height: 55px; background-color: #FECB02; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.4em; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">C</div>
+                <div style="width: 55px; height: 55px; background-color: #EE8100; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.4em; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">D</div>
+                <div style="width: 55px; height: 55px; background-color: #E63E11; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.4em; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">E</div>
             </div>
             
-            <div style="display: flex; justify-content: space-between; padding: 0 10px;">
-                <span style="color: #008145; font-weight: bold; font-size: 0.8em;">← Más saludable</span>
-                <span style="color: #E63E11; font-weight: bold; font-size: 0.8em;">Menos saludable →</span>
+            <div style="display: flex; justify-content: space-between; padding: 0 20px;">
+                <span style="color: #008145; font-weight: bold; font-size: 0.9em;">← Más saludable</span>
+                <span style="color: #E63E11; font-weight: bold; font-size: 0.9em;">Menos saludable →</span>
             </div>
         </div>
     """, unsafe_allow_html=True)
