@@ -4,28 +4,21 @@ import pandas as pd
 import re
 
 # 1. CONFIGURACIÓN DE PÁGINA Y ESTILO 
+# ESTILO GLOBAL (Sin variables dinámicas para evitar el NameError)
 st.markdown("""
     <style>
-    /* Fondo General y Sidebar */
     .stApp { background-color: #fdfaf9; }
     [data-testid="stSidebar"] { 
         background-color: #fdfaf9; 
         border-right: 2px solid #2e5a42; 
     }
-
-    /* Textos del Sidebar en Verde Bosque */
     [data-testid="stSidebar"] .stMarkdown, [data-testid="stSidebar"] label {
         color: #2e5a42 !important;
         font-weight: 600 !important;
     }
-
-    /* Títulos en Salmón */
-    h1, h2, .sidebar-title { 
-        color: #f5a191 !important; 
-        font-family: 'Helvetica Neue', sans-serif;
-    }
-
-    /* Estilo para la Nota del Modelo dentro del Expander */
+    h1, h2, .sidebar-title { color: #f5a191 !important; }
+    
+    /* Estilo para la Nota del Modelo */
     .nota-expander {
         background-color: #ffffff;
         padding: 15px;
@@ -36,6 +29,28 @@ st.markdown("""
         margin-top: 15px;
     }
     </style>
+    """, unsafe_allow_html=True)
+
+# EL EXPANDER CON LA NOTA
+with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", expanded=True):
+    st.markdown("""
+        <div style="text-align: center; padding: 10px;">
+            <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 10px;">
+                <div style="width: 35px; height: 35px; background-color: #008145; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">A</div>
+                <div style="width: 35px; height: 35px; background-color: #85BB2F; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">B</div>
+                <div style="width: 35px; height: 35px; background-color: #FECB02; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">C</div>
+                <div style="width: 35px; height: 35px; background-color: #EE8100; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">D</div>
+                <div style="width: 35px; height: 35px; background-color: #E63E11; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">E</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: #2e5a42; font-weight: bold;">
+                <span>← Más saludable</span>
+                <span>Menos saludable →</span>
+            </div>
+            <div class="nota-expander">
+                <strong>💡 Nota del Modelo:</strong> Esta clasificación se basa en el análisis de nutrientes por 100g. 
+                Recuerda que el Nutri-Score es una herramienta para comparar productos de la misma categoría.
+            </div>
+        </div>
     """, unsafe_allow_html=True)
 
 # 2. SECCIÓN DE REFERENCIA (Expander arriba con la Nota integrada)
