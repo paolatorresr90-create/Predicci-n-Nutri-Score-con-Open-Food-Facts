@@ -6,55 +6,87 @@ import re
 # 1. CONFIGURACIÓN DE PÁGINA Y ESTILO 
 st.markdown("""
     <style>
-    .stApp {
-        background-color: #fdfaf9; /* Un blanco roto cálido que combina con tu presentación */
-<style>
-<style>
-    /* 1. Fondo del Sidebar (Un verde muy suave o blanco para que respiren las letras) */
-    [data-testid="stSidebar"] {
-        background-color: #fdfaf9; /* Fondo crema muy claro, casi blanco */
-        border-right: 2px solid #2e5a42;
+    /* Fondo General y Sidebar */
+    .stApp { background-color: #fdfaf9; }
+    [data-testid="stSidebar"] { 
+        background-color: #fdfaf9; 
+        border-right: 2px solid #2e5a42; 
     }
 
-    /* 2. TEXTO DEL SIDEBAR (Verde Bosque para máxima legibilidad) */
-    [data-testid="stSidebar"] .stMarkdown, 
-    [data-testid="stSidebar"] label, 
-    [data-testid="stSidebar"] p,
-    [data-testid="stSidebar"] span {
-        color: #2e5a42 !important; /* Verde oscuro */
+    /* Textos del Sidebar en Verde Bosque */
+    [data-testid="stSidebar"] .stMarkdown, [data-testid="stSidebar"] label {
+        color: #2e5a42 !important;
         font-weight: 600 !important;
     }
 
-    /* 3. Título del Panel en Salmón */
-    .sidebar-title {
-        color: #f5a191 !important; /* Salmón de tu portada */
-        font-size: 26px;
-        font-weight: bold;
-        text-align: center;
-        padding: 10px;
-        border-bottom: 2px solid #f5a191;
-        margin-bottom: 20px;
+    /* Títulos en Salmón */
+    h1, h2, .sidebar-title { 
+        color: #f5a191 !important; 
+        font-family: 'Helvetica Neue', sans-serif;
     }
-    
-    /* 4. Título Principal y Subtítulos en la página central */
-    h1, h2, h3 {
-        color: #f5a191 !important; /* Títulos en Salmón */
-    }
-    
-    /* Botón de Generar Diagnóstico con los colores de la marca */
-    .stButton>button {
-        background-color: #2e5a42;
-        color: white;
+
+    /* Estilo para la Nota del Modelo dentro del Expander */
+    .nota-expander {
+        background-color: #ffffff;
+        padding: 15px;
         border-radius: 10px;
-        border: none;
-        width: 100%;
-    }
-    .stButton>button:hover {
-        background-color: #f5a191;
-        color: white;
+        border-left: 5px solid #f5a191;
+        font-size: 14px;
+        color: #4a4e69;
+        margin-top: 15px;
     }
     </style>
     """, unsafe_allow_html=True)
+
+# 2. SECCIÓN DE REFERENCIA (Expander arriba con la Nota integrada)
+st.sidebar.markdown('<p class="sidebar-title">🥗 Panel de Nutrientes</p>', unsafe_allow_html=True)
+
+with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", expanded=True):
+    # Aquí el semáforo horizontal que ya tenías
+    st.markdown("""
+        <div style="text-align: center; padding: 10px;">
+            <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 10px;">
+                <div style="width: 35px; height: 35px; background-color: #008145; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">A</div>
+                <div style="width: 35px; height: 35px; background-color: #85BB2F; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">B</div>
+                <div style="width: 35px; height: 35px; background-color: #FECB02; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">C</div>
+                <div style="width: 35px; height: 35px; background-color: #EE8100; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">D</div>
+                <div style="width: 35px; height: 35px; background-color: #E63E11; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">E</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: #2e5a42; font-weight: bold;">
+                <span>← Más saludable</span>
+                <span>Menos saludable →</span>
+            </div>
+            <div class="nota-expander">
+                <strong>💡 Nota del Modelo:</strong> Esta clasificación se basa en el análisis de nutrientes por 100g. 
+                Recuerda que el Nutri-Score es una herramienta para comparar productos de la misma categoría.
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+
+# ... (Aquí va tu código de inputs y el botón de diagnóstico) ...
+
+# 3. BLOQUE DE RESULTADO (Cuadro sólido pequeño con letra blanca)
+# Cuando generes el resultado (dentro del if button):
+# idx es el índice (0 para A, 1 para B, etc.)
+# letras = ["A", "B", "C", "D", "E"]
+# colores = ["#008145", "#85BB2F", "#FECB02", "#EE8100", "#E63E11"]
+
+st.markdown(f"""
+    <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
+        <div style="
+            background-color: {colores[idx]}; 
+            width: 100px; 
+            height: 100px; 
+            border-radius: 15px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <h1 style="color: white !important; font-size: 65px; margin: 0; font-family: sans-serif;">{letras[idx]}</h1>
+        </div>
+        <h2 style="color: #2e5a42 !important; margin-top: 15px; text-align: center;">{descripciones[idx]}</h2>
+    </div>
+""", unsafe_allow_html=True)
 
 # 2. CARGA DE ACTIVOS (Modelo y Variables)
 @st.cache_resource
