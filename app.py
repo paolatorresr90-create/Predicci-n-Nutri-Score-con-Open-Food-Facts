@@ -4,12 +4,11 @@ import pandas as pd
 import re
 import os
 
-# 1. ESTILO Y CONFIGURACIÓN
+# 1. ESTILO Y CONFIGURACIÓN (Sidebar Verde Bosque #2e5a42)
 st.set_page_config(page_title="Nutri-Score AI Predictor", page_icon="🥗")
 
 st.markdown("""
     <style>
-    /* Fondo General de la App */
     .stApp { background-color: #fdfaf9; }
     
     /* SIDEBAR VERDE BOSQUE */
@@ -17,7 +16,7 @@ st.markdown("""
         background-color: #2e5a42 !important; 
     }
     
-    /* TEXTO DEL SIDEBAR (Color crema/claro de tu imagen) */
+    /* TEXTO DEL SIDEBAR (Crema/Claro) */
     [data-testid="stSidebar"] .stMarkdown, 
     [data-testid="stSidebar"] label, 
     [data-testid="stSidebar"] p, 
@@ -26,7 +25,7 @@ st.markdown("""
     }
 
     /* Títulos en Salmón */
-    h1, h2, .sidebar-title { color: #f5a191 !important; font-family: sans-serif; }
+    h1, h2 { color: #f5a191 !important; font-family: sans-serif; }
     
     /* Botón de Diagnóstico */
     .stButton>button {
@@ -55,7 +54,7 @@ def load_assets():
 
 model, features_20 = load_assets()
 
-# 3. SIDEBAR
+# 3. SIDEBAR (Panel de Entrada)
 st.sidebar.markdown('<p style="color:#f5a191; font-size:24px; font-weight:bold; text-align:center;">🥗 Panel de Nutrientes</p>', unsafe_allow_html=True)
 
 def get_clean_input(label, default):
@@ -71,13 +70,33 @@ fat = get_clean_input("Grasas totales (g)", 10.0)
 sat_fat = get_clean_input("Grasas saturadas (g)", 2.0)
 proteins = get_clean_input("Proteínas (g)", 5.0)
 fiber = get_clean_input("Fibra (g)", 2.0)
-sodium_mg = get_clean_input("Sodio (mg)", 150.0)
+sodium_mg = get_clean_input("Sodio (mg) - Etiqueta CO", 150.0)
 is_bev = st.sidebar.selectbox("¿Es una bebida?", [0, 1], format_func=lambda x: "Sí" if x == 1 else "No")
 
-# 4. CUERPO PRINCIPAL
+# 4. CUERPO PRINCIPAL (Título y el Expander que ya estaba bien)
 st.title("🥗 Nutri-Score AI Predictor")
 
-# 5. LÓGICA DE PREDICCIÓN Y CUADRO INTEGRADO
+# Restauramos el expander de arriba
+with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", expanded=True):
+    st.markdown("""
+        <div style="text-align: center; padding: 10px;">
+            <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 15px;">
+                <div style="width: 40px; height: 40px; background-color: #008145; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">A</div>
+                <div style="width: 40px; height: 40px; background-color: #85BB2F; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">B</div>
+                <div style="width: 40px; height: 40px; background-color: #FECB02; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">C</div>
+                <div style="width: 40px; height: 40px; background-color: #EE8100; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">D</div>
+                <div style="width: 40px; height: 40px; background-color: #E63E11; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">E</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.85em; color: #2e5a42; font-weight: bold; padding: 0 10px;">
+                <span>← Más saludable</span><span>Menos saludable →</span>
+            </div>
+            <div style="background-color: #ffffff; padding: 15px; border-radius: 10px; border-left: 5px solid #f5a191; font-size: 14px; color: #4a4e69; margin-top: 15px; text-align: left;">
+                <strong>💡 Nota del Modelo:</strong> Esta clasificación se basa en el análisis por 100g. Es una herramienta comparativa para productos de la misma categoría.
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+
+# 5. LÓGICA DE PREDICCIÓN Y RESULTADO INTEGRADO
 if st.button("Generar Diagnóstico"):
     if model is not None:
         try:
@@ -99,7 +118,7 @@ if st.button("Generar Diagnóstico"):
             colores = ["#008145", "#85BB2F", "#FECB02", "#EE8100", "#E63E11"]
             descripciones = ["Excelente calidad nutricional", "Buena calidad nutricional", "Calidad nutricional aceptable", "Baja calidad nutricional", "Mala calidad nutricional"]
 
-            # RESULTADO: Cuadro grande integrado con fondo de color y letras blancas
+            # RESULTADO: Tarjeta grande con todo blanco adentro
             st.markdown(f"""
                 <div style="
                     background-color: {colores[idx]}; 
@@ -108,9 +127,9 @@ if st.button("Generar Diagnóstico"):
                     text-align: center; 
                     margin-top: 30px;
                     box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                    <h1 style="color: white !important; font-size: 100px; margin: 0; line-height: 1;">{letras[idx]}</h1>
+                    <h1 style="color: white !important; font-size: 110px; margin: 0; line-height: 1;">{letras[idx]}</h1>
                     <h2 style="color: white !important; margin-top: 20px; font-size: 28px; font-weight: bold;">{descripciones[idx]}</h2>
-                    <hr style="border: 1px solid rgba(255,255,255,0.3); margin: 20px 0;">
+                    <hr style="border: 1px solid rgba(255,255,255,0.3); margin: 25px 0;">
                     <p style="color: white; font-size: 16px; opacity: 0.9;">Análisis de Inteligencia Artificial basado en Nutri-Score</p>
                 </div>
             """, unsafe_allow_html=True)
