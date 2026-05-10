@@ -112,17 +112,21 @@ if st.button("Generar Diagnóstico"):
                 "Calidad nutricional aceptable", "Baja calidad nutricional", "Mala calidad nutricional"
             ]
 
-            # TARJETA FINAL: USAMOS COLOR HEXADECIMAL BLANCO PURO (#FFFFFF)
+# RESULTADO FINAL: Tarjeta con blanco forzado mediante selectores universales
             st.markdown(f"""
-                <div style="background-color: {colores[idx]}; padding: 40px; border-radius: 25px; text-align: center; margin-top: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                    <div style="color: #ffffff !important; font-size: 110px; font-weight: bold; margin-bottom: 10px; font-family: sans-serif;">
-                        {letras[idx]}
+                <div style="background-color: {colores[idx]}; padding: 40px; border-radius: 25px; text-align: center; margin-top: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); color: white !important;">
+                    <div style="margin-bottom: 10px;">
+                        <span style="color: #FFFFFF !important; font-size: 110px; font-weight: bold; font-family: sans-serif; display: block; line-height: 1;">
+                            {letras[idx]}
+                        </span>
                     </div>
-                    <div style="color: #ffffff !important; font-size: 32px; font-weight: bold; font-family: sans-serif;">
-                        {descripciones[idx]}
+                    <div style="margin-top: 20px;">
+                        <span style="color: #FFFFFF !important; font-size: 32px; font-weight: bold; font-family: sans-serif; display: block;">
+                            {descripciones[idx]}
+                        </span>
                     </div>
-                    <hr style="border: 1px solid rgba(255,255,255,0.3); margin: 25px 0;">
-                    <div style="color: #ffffff !important; font-size: 18px; opacity: 0.9; font-family: sans-serif;">
+                    <hr style="border: 1px solid rgba(255,255,255,0.4); margin: 25px 0;">
+                    <div style="color: #FFFFFF !important; font-size: 18px; opacity: 0.9; font-family: sans-serif; display: block;">
                         Análisis de Inteligencia Artificial basado en Nutri-Score
                     </div>
                 </div>
