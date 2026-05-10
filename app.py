@@ -9,28 +9,49 @@ st.markdown("""
     .stApp {
         background-color: #fdfaf9; /* Un blanco roto cálido que combina con tu presentación */
 <style>
-    /* Color de fondo del Sidebar (Verde de la presentación) */
+<style>
+    /* 1. Fondo del Sidebar (Un verde muy suave o blanco para que respiren las letras) */
     [data-testid="stSidebar"] {
-        background-color: #2e5a42; /* Verde bosque */
+        background-color: #fdfaf9; /* Fondo crema muy claro, casi blanco */
+        border-right: 2px solid #2e5a42;
     }
 
-    /* Color del texto dentro del Sidebar para que sea legible (Blanco) */
-    [data-testid="stSidebar"] .stMarkdown, [data-testid="stSidebar"] label, [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2 {
-        color: white !important;
+    /* 2. TEXTO DEL SIDEBAR (Verde Bosque para máxima legibilidad) */
+    [data-testid="stSidebar"] .stMarkdown, 
+    [data-testid="stSidebar"] label, 
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] span {
+        color: #2e5a42 !important; /* Verde oscuro */
+        font-weight: 600 !important;
     }
 
-    /* Título del Panel de Nutrientes en color Salmón */
-        color: #f5a191 !important; /* Color salmón de la portada */
-        font-size: 24px;
+    /* 3. Título del Panel en Salmón */
+    .sidebar-title {
+        color: #f5a191 !important; /* Salmón de tu portada */
+        font-size: 26px;
         font-weight: bold;
+        text-align: center;
+        padding: 10px;
+        border-bottom: 2px solid #f5a191;
         margin-bottom: 20px;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
     
-    /* Estilo para los inputs de número para que resalten en el verde */
-    .stNumberInput div div input {
-        background-color: #fdfaf9;
-        color: #2e5a42;
+    /* 4. Título Principal y Subtítulos en la página central */
+    h1, h2, h3 {
+        color: #f5a191 !important; /* Títulos en Salmón */
+    }
+    
+    /* Botón de Generar Diagnóstico con los colores de la marca */
+    .stButton>button {
+        background-color: #2e5a42;
+        color: white;
+        border-radius: 10px;
+        border: none;
+        width: 100%;
+    }
+    .stButton>button:hover {
+        background-color: #f5a191;
+        color: white;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -79,7 +100,7 @@ def get_clean_input(label, default):
     return float(val_str)
 
 # 5. PANEL DE ENTRADA (Sidebar)
-st.sidebar.header("🥗 Panel de Nutrientes (100g)")
+st.sidebar.markdown('<p class="sidebar-title">🥗 Panel de Nutrientes</p>', unsafe_allow_html=True)
 try:
     energy = get_clean_input("Calorías (kcal)", 150.0)
     sugars = get_clean_input("Azúcares (g)", 5.0)
