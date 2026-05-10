@@ -63,7 +63,8 @@ try:
     sat_fat = get_clean_input("Grasas saturadas (g)", 2.0)
     proteins = get_clean_input("Proteínas (g)", 5.0)
     fiber = get_clean_input("Fibra (g)", 2.0)
-    salt = get_clean_input("Sodio (g)", 0.5)
+    try:
+    sodium_mg = get_clean_input("Sodio (mg) - Según etiqueta CO", 150.0)
     is_bev = st.sidebar.selectbox("¿Es una bebida?", [0, 1], format_func=lambda x: "Sí" if x == 1 else "No")
 except Exception:
     st.stop()
