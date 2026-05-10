@@ -57,13 +57,13 @@ def get_clean_input(label, default):
 # 5. PANEL DE ENTRADA (Sidebar)
 st.sidebar.header("🚦 Panel de Nutrientes (100g)")
 try:
-    energy = get_clean_input("Energía (kcal)", 150.0)
+    energy = get_clean_input("Calorías (kcal)", 150.0)
     sugars = get_clean_input("Azúcares (g)", 5.0)
     fat = get_clean_input("Grasas totales (g)", 10.0)
     sat_fat = get_clean_input("Grasas saturadas (g)", 2.0)
     proteins = get_clean_input("Proteínas (g)", 5.0)
     fiber = get_clean_input("Fibra (g)", 2.0)
-    salt = get_clean_input("Sal (g)", 0.5)
+    salt = get_clean_input("Sodio (g)", 0.5)
     is_bev = st.sidebar.selectbox("¿Es una bebida?", [0, 1], format_func=lambda x: "Sí" if x == 1 else "No")
 except Exception:
     st.stop()
@@ -110,7 +110,7 @@ if st.button("Generar Diagnóstico"):
             <div style="background-color:{colores[idx]}; padding:30px; border-radius:20px; text-align:center; border: 3px solid white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
                 <h1 style="color:white; margin:0; font-size: 50px; font-family: sans-serif;">{letras[idx]}</h1>
                 <h2 style="color:white; margin:10px 0; font-size: 24px; font-family: sans-serif;">{descripciones[idx]}</h2>
-                <p style="color:white; font-size: 16px; opacity: 0.9;">Predicción basada en XGBoost con 98% de confianza (AUC)</p>
+               
             </div>
         """, unsafe_allow_html=True)
         st.balloons()
