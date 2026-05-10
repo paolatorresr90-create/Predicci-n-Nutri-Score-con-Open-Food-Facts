@@ -94,14 +94,23 @@ if st.button("Generar Diagnóstico"):
         input_df = pd.DataFrame([data])[features_20]
         idx = model.predict(input_df)[0]
         
+      # Definimos las letras, colores y ahora las descripciones sugeridas
         letras = ["A", "B", "C", "D", "E"]
         colores = ["#008145", "#85BB2F", "#FECB02", "#EE8100", "#E63E11"]
+        descripciones = [
+            "Muy buena calidad nutricional",
+            "Calidad nutricional buena",
+            "Calidad nutricional media",
+            "Baja calidad nutricional",
+            "Mala calidad nutricional"
+        ]
         
-        # Mostrar resultado con estilo profesional
+        # Mostrar resultado con la descripción incluida
         st.markdown(f"""
-            <div style="background-color:{colores[idx]}; padding:40px; border-radius:20px; text-align:center; border: 3px solid white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
-                <h1 style="color:white; margin:0; font-size: 60px; font-family: sans-serif;">NUTRI-SCORE: {letras[idx]}</h1>
-                <p style="color:white; font-size: 20px;">Predicción generada con 98% de confianza (AUC)</p>
+            <div style="background-color:{colores[idx]}; padding:30px; border-radius:20px; text-align:center; border: 3px solid white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
+                <h1 style="color:white; margin:0; font-size: 50px; font-family: sans-serif;">{letras[idx]}</h1>
+                <h2 style="color:white; margin:10px 0; font-size: 24px; font-family: sans-serif;">{descripciones[idx]}</h2>
+                <p style="color:white; font-size: 16px; opacity: 0.9;">Predicción basada en XGBoost con 98% de confianza (AUC)</p>
             </div>
         """, unsafe_allow_html=True)
         st.balloons()
