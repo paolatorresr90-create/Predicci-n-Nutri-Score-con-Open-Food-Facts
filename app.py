@@ -118,7 +118,8 @@ if st.button("Generar Diagnóstico"):
             colores = ["#008145", "#85BB2F", "#FECB02", "#EE8100", "#E63E11"]
             descripciones = ["Excelente calidad nutricional", "Buena calidad nutricional", "Calidad nutricional aceptable", "Baja calidad nutricional", "Mala calidad nutricional"]
 
-            # RESULTADO FINAL: Tarjeta con fondo dinámico y TODO el texto en blanco
+           # RESULTADO FINAL: Tarjeta grande con todo el texto en blanco
+            # Asegúrate de que las comillas triples estén bien cerradas
             st.markdown(f"""
                 <div style="
                     background-color: {colores[idx]}; 
@@ -128,11 +129,11 @@ if st.button("Generar Diagnóstico"):
                     margin-top: 30px;
                     box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
                     
-                    <h1 style="color: white !important; font-size: 110px; margin: 0; line-height: 1; font-family: sans-serif;">
+                    <h1 style="color: white !important; font-size: 110px; margin: 0; line-height: 1; font-family: sans-serif; border: none;">
                         {letras[idx]}
                     </h1>
                     
-                    <h2 style="color: white !important; margin-top: 20px; font-size: 28px; font-weight: bold; font-family: sans-serif;">
+                    <h2 style="color: white !important; margin-top: 20px; font-size: 28px; font-weight: bold; font-family: sans-serif; border: none;">
                         {descripciones[idx]}
                     </h2>
                     
@@ -143,7 +144,7 @@ if st.button("Generar Diagnóstico"):
                     </p>
                 </div>
             """, unsafe_allow_html=True)
-            st.balloons()
             
+            st.balloons()          
         except Exception as e:
             st.error(f"Error: {e}")
