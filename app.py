@@ -76,25 +76,35 @@ except Exception:
 # 6. PREDICCIÓN Y RESULTADO
 if st.button("Generar Diagnóstico"):
     try:
-        # Replicamos el Feature Engineering de las 20 variables
+        # 1. Convertimos el Sodio (mg) ingresado a Sal (g) para el modelo
+        # Fórmula: Sal = Sodio (mg) / 400
+        valor_sal_calculado = sodium_mg / 400
+        valor_sodio_g = sodium_mg / 1000
+
+        # 2. Replicamos las 20 variables usando el nuevo valor
         data = {
-            'energy-kcal_100g': energy, 'fat_100g': fat, 'saturated-fat_100g': sat_fat,
+            'energy-kcal_100g': energy, 
+            'fat_100g': fat, 
+            'saturated-fat_100g': sat_fat,
             'carbohydrates_100g': sugars + 10, 
-            'sugars_100g': sugars, 'fiber_100g': fiber, 'proteins_100g': proteins, 
-            'salt_100g': salt, 'sodium_100g': salt/2.5,
+            'sugars_100g': sugars, 
+            'fiber_100g': fiber, 
+            'proteins_100g': proteins, 
+            'salt_100g': valor_sal_calculado,   # <-- Aquí ya no usamos 'salt'
+            'sodium_100g': valor_sodio_g,       # <-- Usamos el valor convertido
             'sugar_ratio': sugars / (sugars + 10.1),
             'sat_fat_ratio': sat_fat / (fat + 0.1),
             'protein_ratio': proteins / (fat + proteins + 10.1),
-            'salt_density': salt / (energy + 1),
+            'salt_density': valor_sal_calculado / (energy + 1),
             'carb_minus_sugar': 10.0,
-            'total_solids': fat + sugars + proteins + salt,
+            'total_solids': fat + sugars + proteins + valor_sal_calculado,
             'is_beverage': is_bev,
             'is_high_sugar': 1 if sugars > 15 else 0,
             'is_high_fat': 1 if fat > 20 else 0,
-            'is_high_salt': 1 if salt > 1.5 else 0,
+            'is_high_salt': 1 if valor_sal_calculado > 1.5 else 0,
             'is_low_cal': 1 if energy < 40 else 0
         }
-        
+                
         # Predicción usando el orden de columnas original
         input_df = pd.DataFrame([data])[features_20]
         idx = model.predict(input_df)[0]
