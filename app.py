@@ -4,7 +4,7 @@ import pandas as pd
 import re
 import os
 
-# 1. ESTILO Y CONFIGURACIÓN (Sidebar Verde Bosque #2e5a42)
+# 1. ESTILO Y CONFIGURACIÓN GLOBAL
 st.set_page_config(page_title="Nutri-Score AI Predictor", page_icon="🥗")
 
 st.markdown("""
@@ -24,7 +24,7 @@ st.markdown("""
         color: #fdfaf9 !important; 
     }
 
-    /* Títulos en Salmón */
+    /* Títulos de la página central en Salmón */
     h1, h2 { color: #f5a191 !important; font-family: sans-serif; }
     
     /* Botón de Diagnóstico */
@@ -40,7 +40,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# 2. CARGA DE ACTIVOS
+# 2. CARGA DE ACTIVOS DE IA
 @st.cache_resource
 def load_assets():
     rutas_modelo = ['models/nutriscore_xgb_model.pkl', 'nutriscore_xgb_model.pkl']
@@ -73,10 +73,9 @@ fiber = get_clean_input("Fibra (g)", 2.0)
 sodium_mg = get_clean_input("Sodio (mg) - Etiqueta CO", 150.0)
 is_bev = st.sidebar.selectbox("¿Es una bebida?", [0, 1], format_func=lambda x: "Sí" if x == 1 else "No")
 
-# 4. CUERPO PRINCIPAL (Título y el Expander que ya estaba bien)
+# 4. CUERPO PRINCIPAL
 st.title("🥗 Nutri-Score AI Predictor")
 
-# Restauramos el expander de arriba
 with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", expanded=True):
     st.markdown("""
         <div style="text-align: center; padding: 10px;">
@@ -89,9 +88,6 @@ with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", ex
             </div>
             <div style="display: flex; justify-content: space-between; font-size: 0.85em; color: #2e5a42; font-weight: bold; padding: 0 10px;">
                 <span>← Más saludable</span><span>Menos saludable →</span>
-            </div>
-            <div style="background-color: #ffffff; padding: 15px; border-radius: 10px; border-left: 5px solid #f5a191; font-size: 14px; color: #4a4e69; margin-top: 15px; text-align: left;">
-                <strong>💡 Nota del Modelo:</strong> Esta clasificación se basa en el análisis por 100g. Es una herramienta comparativa para productos de la misma categoría.
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -116,80 +112,35 @@ if st.button("Generar Diagnóstico"):
             idx = model.predict(pd.DataFrame([data])[features_20])[0]
             letras = ["A", "B", "C", "D", "E"]
             colores = ["#008145", "#85BB2F", "#FECB02", "#EE8100", "#E63E11"]
-            descripciones = ["Excelente calidad nutricional", "Buena calidad nutricional", "Calidad nutricional aceptable", "Baja calidad nutricional", "Mala calidad nutricional"]
-        ]
+            descripciones = [
+                "Excelente calidad nutricional", "Buena calidad nutricional", 
+                "Calidad nutricional aceptable", "Baja calidad nutricional", "Mala calidad nutricional"
+            ]
 
-        # 1. Definimos los datos del resultado (dentro del botón)
-        letras = ["A", "B", "C", "D", "E"]
-        colores = ["#008145", "#85BB2F", "#FECB02", "#EE8100", "#E63E11"]
-        descripciones = [
-            "Excelente calidad nutricional", 
-            "Buena calidad nutricional", 
-            "Calidad nutricional aceptable", 
-            "Baja calidad nutricional", 
-            "Mala calidad nutricional"
-        ]
-
-        # 2. RESULTADO FINAL: Tarjeta grande con fondo de color y letras blancas
-        st.markdown(f"""
-            <div style="
-                background-color: {colores[idx]}; 
-                padding: 40px; 
-                border-radius: 25px; 
-                text-align: center; 
-                margin-top: 30px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                
-                <h1 style="color: white !important; font-size: 110px; margin: 0; line-height: 1; font-family: sans-serif; border: none;">
-                    {letras[idx]}
-                </h1>
-                
-                <h2 style="color: white !important; margin-top: 20px; font-size: 28px; font-weight: bold; font-family: sans-serif; border: none;">
-                    {descripciones[idx]}
-                </h2>
-                
-                <hr style="border: 1px solid rgba(255,255,255,0.3); margin: 25px 0;">
-                
-                <p style="color: white !important; font-size: 16px; opacity: 0.9; font-family: sans-serif;">
-                    Análisis de Inteligencia Artificial basado en Nutri-Score
-                </p>
-            </div>
-        """, unsafe_allow_html=True)
-        
-        st.balloons()
-
-    except Exception as e:
-        # ESTE BLOQUE ES OBLIGATORIO PARA QUE EL CÓDIGO FUNCIONE
-        st.error(f"Hubo un problema al procesar la predicción: {e}")
-
-        # 2. RESULTADO FINAL: Tarjeta grande con fondo de color y letras blancas
-        st.markdown(f"""
-            <div style="
-                background-color: {colores[idx]}; 
-                padding: 40px; 
-                border-radius: 25px; 
-                text-align: center; 
-                margin-top: 30px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                
-                <h1 style="color: white !important; font-size: 110px; margin: 0; line-height: 1; font-family: sans-serif; border: none;">
-                    {letras[idx]}
-                </h1>
-                
-                <h2 style="color: white !important; margin-top: 20px; font-size: 28px; font-weight: bold; font-family: sans-serif; border: none;">
-                    {descripciones[idx]}
-                </h2>
-                
-                <hr style="border: 1px solid rgba(255,255,255,0.3); margin: 25px 0;">
-                
-                <p style="color: white !important; font-size: 16px; opacity: 0.9; font-family: sans-serif;">
-                    Análisis de Inteligencia Artificial basado en Nutri-Score
-                </p>
-            </div>
-        """, unsafe_allow_html=True)
-        
-        st.balloons()
-
-    except Exception as e:
-        # ESTE BLOQUE ES OBLIGATORIO PARA QUE EL CÓDIGO FUNCIONE
-        st.error(f"Hubo un problema al procesar la predicción: {e}")
+            # RESULTADO FINAL: Tarjeta con letras blancas
+            st.markdown(f"""
+                <div style="
+                    background-color: {colores[idx]}; 
+                    padding: 40px; 
+                    border-radius: 25px; 
+                    text-align: center; 
+                    margin-top: 30px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                    <h1 style="color: white !important; font-size: 110px; margin: 0; line-height: 1; font-family: sans-serif; border: none;">
+                        {letras[idx]}
+                    </h1>
+                    <h2 style="color: white !important; margin-top: 20px; font-size: 28px; font-weight: bold; font-family: sans-serif; border: none;">
+                        {descripciones[idx]}
+                    </h2>
+                    <hr style="border: 1px solid rgba(255,255,255,0.3); margin: 25px 0;">
+                    <p style="color: white !important; font-size: 16px; opacity: 0.9; font-family: sans-serif;">
+                        Análisis de Inteligencia Artificial basado en Nutri-Score
+                    </p>
+                </div>
+            """, unsafe_allow_html=True)
+            st.balloons()
+            
+        except Exception as e:
+            st.error(f"Hubo un problema al procesar la predicción: {e}")
+    else:
+        st.error("Modelo no cargado. Verifica tus archivos .pkl")
