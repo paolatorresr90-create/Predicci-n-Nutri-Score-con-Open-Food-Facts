@@ -8,13 +8,29 @@ st.markdown("""
     <style>
     .stApp {
         background-color: #fdfaf9; /* Un blanco roto cálido que combina con tu presentación */
-    }
+<style>
+    /* Color de fondo del Sidebar (Verde de la presentación) */
     [data-testid="stSidebar"] {
-        background-color: #ffffff;
-        border-right: 1px solid #f2e9e4;
+        background-color: #2e5a42; /* Verde bosque */
     }
-    h1 {
-        color: #4a4e69; /* Un azul grisáceo elegante para los títulos */
+
+    /* Color del texto dentro del Sidebar para que sea legible (Blanco) */
+    [data-testid="stSidebar"] .stMarkdown, [data-testid="stSidebar"] label, [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2 {
+        color: white !important;
+    }
+
+    /* Título del Panel de Nutrientes en color Salmón */
+        color: #f5a191 !important; /* Color salmón de la portada */
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    
+    /* Estilo para los inputs de número para que resalten en el verde */
+    .stNumberInput div div input {
+        background-color: #fdfaf9;
+        color: #2e5a42;
     }
     </style>
     """, unsafe_allow_html=True)
