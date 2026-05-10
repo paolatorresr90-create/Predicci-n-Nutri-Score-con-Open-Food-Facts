@@ -118,7 +118,7 @@ if st.button("Generar Diagnóstico"):
             colores = ["#008145", "#85BB2F", "#FECB02", "#EE8100", "#E63E11"]
             descripciones = ["Excelente calidad nutricional", "Buena calidad nutricional", "Calidad nutricional aceptable", "Baja calidad nutricional", "Mala calidad nutricional"]
 
-            # RESULTADO: Tarjeta grande con todo blanco adentro
+            # RESULTADO FINAL: Tarjeta con fondo dinámico y TODO el texto en blanco
             st.markdown(f"""
                 <div style="
                     background-color: {colores[idx]}; 
@@ -127,10 +127,20 @@ if st.button("Generar Diagnóstico"):
                     text-align: center; 
                     margin-top: 30px;
                     box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                    <h1 style="color: white !important; font-size: 110px; margin: 0; line-height: 1;">{letras[idx]}</h1>
-                    <h2 style="color: white !important; margin-top: 20px; font-size: 28px; font-weight: bold;">{descripciones[idx]}</h2>
+                    
+                    <h1 style="color: white !important; font-size: 110px; margin: 0; line-height: 1; font-family: sans-serif;">
+                        {letras[idx]}
+                    </h1>
+                    
+                    <h2 style="color: white !important; margin-top: 20px; font-size: 28px; font-weight: bold; font-family: sans-serif;">
+                        {descripciones[idx]}
+                    </h2>
+                    
                     <hr style="border: 1px solid rgba(255,255,255,0.3); margin: 25px 0;">
-                    <p style="color: white; font-size: 16px; opacity: 0.9;">Análisis de Inteligencia Artificial basado en Nutri-Score</p>
+                    
+                    <p style="color: white !important; font-size: 16px; opacity: 0.9; font-family: sans-serif;">
+                        Análisis de Inteligencia Artificial basado en Nutri-Score
+                    </p>
                 </div>
             """, unsafe_allow_html=True)
             st.balloons()
