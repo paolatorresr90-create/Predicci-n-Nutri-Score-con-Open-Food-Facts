@@ -4,19 +4,24 @@ import pandas as pd
 import re
 import os
 
-# 1. CONFIGURACIÓN Y ESTILO (Sidebar Verde y Títulos Salmón)
+# 1. CONFIGURACIÓN Y ESTILO GLOBAL (Sidebar Verde y Títulos Salmón)
 st.set_page_config(page_title="Nutri-Score AI Predictor", page_icon="🥗")
 
 st.markdown("""
     <style>
     .stApp { background-color: #fdfaf9; }
+    
+    /* SIDEBAR VERDE BOSQUE CON TEXTO CLARO */
     [data-testid="stSidebar"] { background-color: #2e5a42 !important; }
     [data-testid="stSidebar"] .stMarkdown, [data-testid="stSidebar"] label, 
-    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span { color: #fdfaf9 !important; }
+    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span { 
+        color: #fdfaf9 !important; 
+    }
     
-    /* Color Salmón para títulos normales de la página */
+    /* Títulos Salmón para la interfaz general */
     h1, h2 { color: #f5a191 !important; }
 
+    /* Botón de Diagnóstico */
     .stButton>button {
         background-color: #f5a191;
         color: white;
@@ -24,11 +29,12 @@ st.markdown("""
         height: 50px;
         width: 100%;
         font-weight: bold;
+        border: none;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# 2. CARGA DE MODELO
+# 2. CARGA DE MODELO (Con rutas flexibles para evitar errores)
 @st.cache_resource
 def load_assets():
     rutas_modelo = ['models/nutriscore_xgb_model.pkl', 'nutriscore_xgb_model.pkl']
@@ -42,7 +48,7 @@ def load_assets():
 
 model, features_20 = load_assets()
 
-# 3. SIDEBAR
+# 3. SIDEBAR (Panel de Entrada)
 st.sidebar.markdown('<p style="color:#f5a191; font-size:24px; font-weight:bold; text-align:center;">🥗 Panel de Nutrientes</p>', unsafe_allow_html=True)
 
 def get_clean_input(label, default):
@@ -58,13 +64,12 @@ fat = get_clean_input("Grasas totales (g)", 10.0)
 sat_fat = get_clean_input("Grasas saturadas (g)", 2.0)
 proteins = get_clean_input("Proteínas (g)", 5.0)
 fiber = get_clean_input("Fibra (g)", 2.0)
-sodium_mg = get_clean_input("Sodio (mg)", 150.0)
+sodium_mg = get_clean_input("Sodio (mg) - Etiqueta CO", 150.0)
 is_bev = st.sidebar.selectbox("¿Es una bebida?", [0, 1], format_func=lambda x: "Sí" if x == 1 else "No")
 
 # 4. CUERPO PRINCIPAL
 st.title("🥗 Nutri-Score AI Predictor")
 
-# RECUPERAMOS EL TEXTO DEL DESPLEGABLE
 with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", expanded=True):
     st.markdown("""
         <div style="text-align: center; padding: 10px;">
@@ -75,7 +80,7 @@ with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", ex
                 <div style="width: 40px; height: 40px; background-color: #EE8100; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">D</div>
                 <div style="width: 40px; height: 40px; background-color: #E63E11; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">E</div>
             </div>
-            <p style="color: #2e5a42; font-size: 0.9em; text-align: left;">
+            <p style="color: #2e5a42; font-size: 0.9em; text-align: left; background-color: white; padding: 10px; border-radius: 10px; border-left: 5px solid #f5a191;">
                 <strong>Nota del Modelo:</strong> Esta clasificación se basa en el análisis por 100g. 
                 Es una herramienta comparativa para productos de la misma categoría.
             </p>
@@ -102,23 +107,29 @@ if st.button("Generar Diagnóstico"):
             idx = model.predict(pd.DataFrame([data])[features_20])[0]
             letras = ["A", "B", "C", "D", "E"]
             colores = ["#008145", "#85BB2F", "#FECB02", "#EE8100", "#E63E11"]
-            descripciones = ["Excelente calidad nutricional", "Buena calidad nutricional", "Calidad aceptable", "Baja calidad nutricional", "Mala calidad nutricional"]
+            descripciones = [
+                "Excelente calidad nutricional", "Buena calidad nutricional", 
+                "Calidad nutricional aceptable", "Baja calidad nutricional", "Mala calidad nutricional"
+            ]
 
-            # TARJETA FINAL: USAMOS SPAN PARA FORZAR EL BLANCO SOBRE EL SALMÓN
+            # TARJETA FINAL: USAMOS COLOR HEXADECIMAL BLANCO PURO (#FFFFFF)
             st.markdown(f"""
-                <div style="background-color: {colores[idx]}; padding: 40px; border-radius: 25px; text-align: center; margin-top: 30px;">
-                    <span style="color: white !important; font-size: 110px; font-weight: bold; display: block; margin-bottom: 10px;">
+                <div style="background-color: {colores[idx]}; padding: 40px; border-radius: 25px; text-align: center; margin-top: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                    <div style="color: #ffffff !important; font-size: 110px; font-weight: bold; margin-bottom: 10px; font-family: sans-serif;">
                         {letras[idx]}
-                    </span>
-                    <span style="color: white !important; font-size: 28px; font-weight: bold; display: block;">
+                    </div>
+                    <div style="color: #ffffff !important; font-size: 32px; font-weight: bold; font-family: sans-serif;">
                         {descripciones[idx]}
-                    </span>
-                    <hr style="border: 1px solid rgba(255,255,255,0.3); margin: 20px 0;">
-                    <p style="color: white !important; font-size: 16px; opacity: 0.9;">
-                        Análisis de Inteligencia Artificial
-                    </p>
+                    </div>
+                    <hr style="border: 1px solid rgba(255,255,255,0.3); margin: 25px 0;">
+                    <div style="color: #ffffff !important; font-size: 18px; opacity: 0.9; font-family: sans-serif;">
+                        Análisis de Inteligencia Artificial basado en Nutri-Score
+                    </div>
                 </div>
             """, unsafe_allow_html=True)
             st.balloons()
+            
         except Exception as e:
-            st.error(f"Error: {e}")
+            st.error(f"Hubo un problema al procesar la predicción: {e}")
+    else:
+        st.error("Modelo no cargado. Verifica tus archivos .pkl")
