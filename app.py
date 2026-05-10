@@ -118,7 +118,7 @@ if st.button("Generar Diagnóstico"):
             colores = ["#008145", "#85BB2F", "#FECB02", "#EE8100", "#E63E11"]
             descripciones = ["Excelente calidad nutricional", "Buena calidad nutricional", "Calidad nutricional aceptable", "Baja calidad nutricional", "Mala calidad nutricional"]
 
-           # RESULTADO FINAL: Tarjeta grande con todo el texto en blanco
+         # RESULTADO FINAL: Tarjeta grande con todo el texto en blanco
             # Asegúrate de que las comillas triples estén bien cerradas
             st.markdown(f"""
                 <div style="
@@ -145,6 +145,4 @@ if st.button("Generar Diagnóstico"):
                 </div>
             """, unsafe_allow_html=True)
             
-            st.balloons()          
-        except Exception as e:
-            st.error(f"Error: {e}")
+            st.balloons()
