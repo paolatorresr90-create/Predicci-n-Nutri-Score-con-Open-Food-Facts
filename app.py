@@ -3,7 +3,7 @@ import joblib
 import pandas as pd
 import re
 
-# 1. CONFIGURACIÓN DE PÁGINA Y ESTILO (Fondo gris claro)
+# 1. CONFIGURACIÓN DE PÁGINA Y ESTILO 
 st.markdown("""
     <style>
     .stApp {
@@ -34,7 +34,7 @@ def load_assets():
 model, features_20 = load_assets()
 
 # 3. CABECERA Y CONTEXTO EDUCATIVO
-st.title("🚦 Nutri-Score AI Predictor")
+st.title("🥗 Nutri-Score AI Predictor")
 st.markdown("### Clasificación Nutricional Automatizada mediante Machine Learning")
   
 with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", expanded=True):
@@ -63,7 +63,7 @@ def get_clean_input(label, default):
     return float(val_str)
 
 # 5. PANEL DE ENTRADA (Sidebar)
-st.sidebar.header("🚦 Panel de Nutrientes (100g)")
+st.sidebar.header("🥗 Panel de Nutrientes (100g)")
 try:
     energy = get_clean_input("Calorías (kcal)", 150.0)
     sugars = get_clean_input("Azúcares (g)", 5.0)
@@ -117,7 +117,7 @@ if st.button("Generar Diagnóstico"):
         input_df = pd.DataFrame([data])[features_20]
         idx = model.predict(input_df)[0]
         
-      # Definimos las letras, colores y ahora las descripciones sugeridas
+    # 1. Definimos los datos del resultado
         letras = ["A", "B", "C", "D", "E"]
         colores = ["#008145", "#85BB2F", "#FECB02", "#EE8100", "#E63E11"]
         descripciones = [
@@ -128,12 +128,25 @@ if st.button("Generar Diagnóstico"):
             "Mala calidad nutricional"
         ]
         
-        # Mostrar resultado con la descripción incluida
+        # 2. Bloque de Resultado con estilo "Glassmorphism" (Efecto Cristal)
         st.markdown(f"""
-            <div style="background-color:{colores[idx]}; padding:30px; border-radius:20px; text-align:center; border: 3px solid white; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
-                <h1 style="color:white; margin:0; font-size: 50px; font-family: sans-serif;">{letras[idx]}</h1>
-                <h2 style="color:white; margin:10px 0; font-size: 24px; font-family: sans-serif;">{descripciones[idx]}</h2>
-               
+            <div style="
+                background: rgba(255, 255, 255, 0.7); 
+                backdrop-filter: blur(10px); 
+                border-radius: 25px; 
+                padding: 40px; 
+                border: 4px solid {colores[idx]}; 
+                text-align: center; 
+                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+                margin-bottom: 20px;">
+                <h1 style="color:{colores[idx]}; font-size: 80px; margin: 0; font-family: sans-serif;">{letras[idx]}</h1>
+                <h2 style="color: #4a4e69; margin: 10px 0; font-family: sans-serif;">{descripciones[idx]}</h2>
+                <p style="color: #6c757d; font-size: 14px;">Predicción optimizada para etiquetado colombiano</p>
+            </div>
+            
+            <div style="background-color: #fdfaf9; padding: 15px; border-radius: 10px; border-left: 5px solid {colores[idx]}; font-size: 14px; color: #4a4e69; font-family: sans-serif;">
+                <strong>💡 Nota del Modelo:</strong> Esta clasificación se basa en el análisis de nutrientes por 100g. 
+                Recuerda que el Nutri-Score es una herramienta complementaria para comparar productos de la misma categoría.
             </div>
         """, unsafe_allow_html=True)
         st.balloons()
