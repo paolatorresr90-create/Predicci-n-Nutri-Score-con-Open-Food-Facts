@@ -4,10 +4,18 @@ import pandas as pd
 import re
 
 # 1. CONFIGURACIÓN DE PÁGINA Y ESTILO (Fondo gris claro)
-st.set_page_config(page_title="Nutri-Score AI Predictor", page_icon="🚦", layout="wide")
 st.markdown("""
     <style>
-    .stApp { background-color: #f0f2f6; }
+    .stApp {
+        background-color: #fdfaf9; /* Un blanco roto cálido que combina con tu presentación */
+    }
+    [data-testid="stSidebar"] {
+        background-color: #ffffff;
+        border-right: 1px solid #f2e9e4;
+    }
+    h1 {
+        color: #4a4e69; /* Un azul grisáceo elegante para los títulos */
+    }
     </style>
     """, unsafe_allow_html=True)
 
