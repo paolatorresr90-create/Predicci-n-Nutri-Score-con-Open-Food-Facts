@@ -63,10 +63,14 @@ try:
     sat_fat = get_clean_input("Grasas saturadas (g)", 2.0)
     proteins = get_clean_input("Proteínas (g)", 5.0)
     fiber = get_clean_input("Fibra (g)", 2.0)
-try:
+    
+    # Aquí es donde integramos el Sodio (mg) para Colombia
     sodium_mg = get_clean_input("Sodio (mg) - Según etiqueta CO", 150.0)
+    
     is_bev = st.sidebar.selectbox("¿Es una bebida?", [0, 1], format_func=lambda x: "Sí" if x == 1 else "No")
+
 except Exception:
+    # Este bloque ya maneja cualquier error de las líneas de arriba
     st.stop()
 
 # 6. PREDICCIÓN Y RESULTADO
