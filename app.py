@@ -53,38 +53,20 @@ with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", ex
         </div>
     """, unsafe_allow_html=True)
 
-# 2. SECCIÓN DE REFERENCIA (Expander arriba con la Nota integrada)
-st.sidebar.markdown('<p class="sidebar-title">🥗 Panel de Nutrientes</p>', unsafe_allow_html=True)
-
-with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", expanded=True):
-    # Aquí el semáforo horizontal que ya tenías
-    st.markdown("""
-        <div style="text-align: center; padding: 10px;">
-            <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 10px;">
-                <div style="width: 35px; height: 35px; background-color: #008145; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">A</div>
-                <div style="width: 35px; height: 35px; background-color: #85BB2F; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">B</div>
-                <div style="width: 35px; height: 35px; background-color: #FECB02; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">C</div>
-                <div style="width: 35px; height: 35px; background-color: #EE8100; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">D</div>
-                <div style="width: 35px; height: 35px; background-color: #E63E11; border-radius: 5px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">E</div>
-            </div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: #2e5a42; font-weight: bold;">
-                <span>← Más saludable</span>
-                <span>Menos saludable →</span>
-            </div>
-            <div class="nota-expander">
-                <strong>💡 Nota del Modelo:</strong> Esta clasificación se basa en el análisis de nutrientes por 100g. 
-                Recuerda que el Nutri-Score es una herramienta para comparar productos de la misma categoría.
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-# ... (Aquí va tu código de inputs y el botón de diagnóstico) ...
-
 # 3. BLOQUE DE RESULTADO (Cuadro sólido pequeño con letra blanca)
-# Cuando generes el resultado (dentro del if button):
-# idx es el índice (0 para A, 1 para B, etc.)
-# letras = ["A", "B", "C", "D", "E"]
-# colores = ["#008145", "#85BB2F", "#FECB02", "#EE8100", "#E63E11"]
+# Dentro del bloque de predicción (cuando ya tienes 'idx')
+letras = ["A", "B", "C", "D", "E"]
+colores = ["#008145", "#85BB2F", "#FECB02", "#EE8100", "#E63E11"]
+descripciones = ["Muy buena calidad", "Buena calidad", "Calidad media", "Baja calidad", "Mala calidad"]
+
+st.markdown(f"""
+    <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
+        <div style="background-color: {colores[idx]}; width: 100px; height: 100px; border-radius: 15px; display: flex; align-items: center; justify-content: center;">
+            <h1 style="color: white !important; font-size: 65px; margin: 0;">{letras[idx]}</h1>
+        </div>
+        <h2 style="color: #2e5a42 !important; margin-top: 15px;">{descripciones[idx]}</h2>
+    </div>
+""", unsafe_allow_html=True)
 
 st.markdown(f"""
     <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
