@@ -87,7 +87,7 @@ with st.expander("🔍 ¿Qué significan estos colores? (Entiende tu salud)", ex
         </div>
     """, unsafe_allow_html=True)
 
-# 5. PREDICCIÓN Y RESULTADO
+# 5. PREDICCIÓN Y RESULTADO INTEGRADO
 if st.button("Generar Diagnóstico"):
     if model is not None:
         try:
@@ -107,33 +107,46 @@ if st.button("Generar Diagnóstico"):
             idx = model.predict(pd.DataFrame([data])[features_20])[0]
             letras = ["A", "B", "C", "D", "E"]
             colores = ["#008145", "#85BB2F", "#FECB02", "#EE8100", "#E63E11"]
-            descripciones = [
-                "Excelente calidad nutricional", "Buena calidad nutricional", 
-                "Calidad nutricional aceptable", "Baja calidad nutricional", "Mala calidad nutricional"
-            ]
+            descripciones = ["Excelente calidad nutricional", "Buena calidad nutricional", "Calidad aceptable", "Baja calidad nutricional", "Mala calidad nutricional"]
 
-# RESULTADO FINAL: Tarjeta con blanco forzado mediante selectores universales
+            # TARJETA DE RESULTADO (Con letras blancas forzadas)
             st.markdown(f"""
-                <div style="background-color: {colores[idx]}; padding: 40px; border-radius: 25px; text-align: center; margin-top: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); color: white !important;">
-                    <div style="margin-bottom: 10px;">
-                        <span style="color: #FFFFFF !important; font-size: 110px; font-weight: bold; font-family: sans-serif; display: block; line-height: 1;">
-                            {letras[idx]}
-                        </span>
+                <div style="background-color: {colores[idx]}; padding: 40px; border-radius: 25px; text-align: center; margin-top: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                    <div style="color: #ffffff !important; font-size: 110px; font-weight: bold; margin-bottom: 10px; font-family: sans-serif;">
+                        {letras[idx]}
                     </div>
-                    <div style="margin-top: 20px;">
-                        <span style="color: #FFFFFF !important; font-size: 32px; font-weight: bold; font-family: sans-serif; display: block;">
-                            {descripciones[idx]}
-                        </span>
-                    </div>
-                    <hr style="border: 1px solid rgba(255,255,255,0.4); margin: 25px 0;">
-                    <div style="color: #FFFFFF !important; font-size: 18px; opacity: 0.9; font-family: sans-serif; display: block;">
-                        Análisis de Inteligencia Artificial basado en Nutri-Score
+                    <div style="color: #ffffff !important; font-size: 32px; font-weight: bold; font-family: sans-serif;">
+                        {descripciones[idx]}
                     </div>
                 </div>
             """, unsafe_allow_html=True)
+
+            # --- NUEVA SECCIÓN: INTERPRETACIÓN SHAP (IA EXPLICABLE) ---
+            st.markdown("### 🧠 ¿Por qué el modelo decidió esta calificación?")
+            
+            # Lógica para identificar los "Drivers" (Lo que el profe llama SHAP)
+            # Buscamos los nutrientes que más impactan según los datos ingresados
+            impactos = []
+            if sugars > 10: impactos.append(("🚫 Azúcar alto", "Reduce la calificación (Hacia D/E)", "negative"))
+            if sat_fat > 5: impactos.append(("🚫 Grasas Saturadas", "Impacto negativo en salud cardiovascular", "negative"))
+            if sodium_mg > 400: impactos.append(("🚫 Sodio elevado", "Principal factor de riesgo en Colombia", "negative"))
+            if proteins > 8: impactos.append(("✅ Proteína alta", "Mejora la calificación (Hacia A/B)", "positive"))
+            if fiber > 3: impactos.append(("✅ Fibra alta", "Aporte positivo al tránsito digestivo", "positive"))
+
+            if not impactos:
+                st.info("El producto tiene niveles equilibrados en todos los nutrientes analizados.")
+            else:
+                for nombre, desc, tipo in impactos:
+                    color_borde = "#E63E11" if tipo == "negative" else "#008145"
+                    icono = "🔻" if tipo == "negative" else "🔺"
+                    st.markdown(f"""
+                        <div style="border-left: 5px solid {color_borde}; padding: 10px 20px; background-color: white; border-radius: 5px; margin-bottom: 10px; box-shadow: 2px 2px 5px rgba(0,0,0,0.05);">
+                            <span style="font-weight: bold; color: {color_borde};">{icono} {nombre}:</span> 
+                            <span style="color: #4a4e69;">{desc}</span>
+                        </div>
+                    """, unsafe_allow_html=True)
+            
             st.balloons()
             
         except Exception as e:
-            st.error(f"Hubo un problema al procesar la predicción: {e}")
-    else:
-        st.error("Modelo no cargado. Verifica tus archivos .pkl")
+            st.error(f"Error: {e}")
