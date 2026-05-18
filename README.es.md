@@ -1,112 +1,60 @@
-# Plantilla de Proyecto de Ciencia de Datos
+# 🥗 Nutri-Score AI Predictor
 
-Esta plantilla está diseñada para impulsar proyectos de ciencia de datos proporcionando una configuración básica para conexiones de base de datos, procesamiento de datos, y desarrollo de modelos de aprendizaje automático. Incluye una organización estructurada de carpetas para tus conjuntos de datos y un conjunto de paquetes de Python predefinidos necesarios para la mayoría de las tareas de ciencia de datos.
+[![Streamlit App](https://static.streamlit.io/badge_github_white.svg)](https://share.streamlit.io/) ## 📝 Descripción del Proyecto
+Este proyecto presenta una aplicación web interactiva que automatiza la clasificación nutricional de alimentos utilizando **Inteligencia Artificial (Machine Learning)**. Basado en el sistema europeo *Nutri-Score*, el modelo analiza los componentes nutricionales por cada 100g de producto para predecir su categoría de calidad desde la **A** (Muy buena calidad) hasta la **E** (Baja calidad).
 
-## Estructura
+### 🇨🇴 Adaptación al Contexto Colombiano
+A diferencia del sistema convencional europeo que requiere el dato estricto de sal en gramos, esta aplicación innova al permitir el ingreso directo de **Sodio en miligramos (mg)**, facilitando la lectura directa desde las tablas nutricionales reguladas en Colombia. El sistema realiza la conversión matemática en tiempo real para alimentar el algoritmo de predicción.
 
-El proyecto está organizado de la siguiente manera:
+---
 
-- **`src/app.py`** → Script principal de Python donde correrá tu proyecto.
-- **`src/explore.ipynb`** → Notebook para exploración y pruebas. Una vez finalizada la exploración, migra el código limpio a `app.py`.
-- **`src/utils.py`** → Funciones auxiliares, como conexión a bases de datos.
-- **`requirements.txt`** → Lista de paquetes de Python necesarios.
-- **`models/`** → Contendrá tus clases de modelos SQLAlchemy.
-- **`data/`** → Almacena los datasets en diferentes etapas:
-  - **`data/raw/`** → Datos sin procesar.
-  - **`data/interim/`** → Datos transformados temporalmente.
-  - **`data/processed/`** → Datos listos para análisis.
+## 🚀 Características Clave
+* **Algoritmo de Clasificación:** Desarrollado con **XGBoost Classifier**, optimizado mediante ingeniería de variables distribuidas en 20 características clave.
+* **Rendimiento del Modelo:** El modelo alcanza un **Área Bajo la Curva (AUC) de 0.98**, demostrando una altísima robustez y confianza en la discriminación de categorías saludables frente a las nocivas.
+* **IA Explicable (XAI):** Inspirado en las sugerencias de interpretabilidad de **SHAP Values (Shapley Additive exPlanations)**, la interfaz desglosa localmente qué nutrientes específicos actuaron como "atractores" hacia categorías saludables o "detractores" que penalizan la nota del alimento.
+* **Diseño de Interfaz Customizado:** UI/UX moderna que adopta los colores institucionales (Verde Bosque y Salmón) integrando un contenedor de resultado dinámico y semáforo pedagógico.
 
+---
 
-## ⚡ Configuración Inicial en Codespaces (Recomendado)
+## 📊 Estructura de Variables Analizadas (20 Features)
+El modelo predice la clase (*Target: Nutri-Score*) evaluando los siguientes macronutrientes, micronutrientes y ratios calculados:
 
-No es necesario realizar ninguna configuración manual, ya que **Codespaces se configura automáticamente** con los archivos predefinidos que ha creado la academia para ti. Simplemente sigue estos pasos:
+1.  `energy-kcal_100g` (Calorías)
+2.  `fat_100g` (Grasas totales)
+3.  `saturated-fat_100g` (Grasas saturadas)
+4.  `carbohydrates_100g` (Carbohidratos totales)
+5.  `sugars_100g` (Azúcares)
+6.  `fiber_100g` (Fibra dietaria)
+7.  `proteins_100g` (Proteínas)
+8.  `salt_100g` (Sal calculada en gramos)
+9.  `sodium_100g` (Sodio calculado en gramos)
+10. `sugar_ratio` (Proporción de azúcares en carbohidratos)
+11. `sat_fat_ratio` (Proporción de grasas saturadas)
+12. `protein_ratio` (Densidad proteica)
+13. `salt_density` (Densidad de sodio por caloría)
+14. `carb_minus_sugar` (Carbohidratos complejos)
+15. `total_solids` (Sólidos totales del producto)
+16. `is_beverage` (Flag condicional para bebidas)
+17. `is_high_sugar` (Alerta de azúcares altos)
+18. `is_high_fat` (Alerta de grasas altas)
+19. `is_high_salt` (Alerta de sodio crítico)
+20. `is_low_cal` (Identificador de productos hipocalóricos)
 
-1. **Espera a que el entorno se configure automáticamente**.
-   - Todos los paquetes necesarios y la base de datos se instalarán por sí mismos.
-   - El `username` y `db_name` creados automáticamente están en el archivo **`.env`** en la raíz del proyecto.
-2. **Una vez que Codespaces esté listo, puedes comenzar a trabajar inmediatamente**.
+---
 
+## 🛠️ Tecnologías Utilizadas
+* **Lenguaje:** Python 3
+* **Librerías de ML/Data:** `xgboost`, `scikit-learn`, `pandas`, `joblib`
+* **Despliegue e Interfaz:** `streamlit`
+* **Diseño:** HTML5 / CSS3 embebido
 
-## 💻 Configuración en Local (Solo si no puedes usar Codespaces)
+---
 
-**Prerrequisitos**
+## 📦 Instrucciones de Instalación y Uso Local
 
-Asegúrate de tener Python 3.11+ instalado en tu máquina. También necesitarás pip para instalar los paquetes de Python.
+Si deseas clonar y ejecutar este predictor de manera local, sigue estos pasos:
 
-**Instalación**
-
-Clona el repositorio del proyecto en tu máquina local.
-
-Navega hasta el directorio del proyecto e instala los paquetes de Python requeridos:
-
-```bash
-pip install -r requirements.txt
-```
-
-**Crear una base de datos (si es necesario)**
-
-Crea una nueva base de datos dentro del motor Postgres personalizando y ejecutando el siguiente comando: 
-
-```bash
-$ psql -U postgres -c "DO \$\$ BEGIN 
-    CREATE USER mi_usuario WITH PASSWORD 'mi_contraseña'; 
-    CREATE DATABASE mi_base_de_datos OWNER mi_usuario; 
-END \$\$;"
-```
-Conéctate al motor Postgres para usar tu base de datos, manipular tablas y datos: 
-
-```bash
-$ psql -U mi_usuario -d mi_base_de_datos
-```
-
-¡Una vez que estés dentro de PSQL podrás crear tablas, hacer consultas, insertar, actualizar o eliminar datos y mucho más!
-
-**Variables de entorno**
-
-Crea un archivo .env en el directorio raíz del proyecto para almacenar tus variables de entorno, como tu cadena de conexión a la base de datos:
-
-```makefile
-DATABASE_URL="postgresql://<USUARIO>:<CONTRASEÑA>@<HOST>:<PUERTO>/<NOMBRE_BD>"
-
-#example
-DATABASE_URL="postgresql://mi_usuario:mi_contraseña@localhost:5432/mi_base_de_datos"
-```
-
-## Ejecutando la Aplicación
-
-Para ejecutar la aplicación, ejecuta el script app.py desde la raíz del directorio del proyecto:
-
-```bash
-python src/app.py
-```
-
-## Añadiendo Modelos
-
-Para añadir clases de modelos SQLAlchemy, crea nuevos archivos de script de Python dentro del directorio models/. Estas clases deben ser definidas de acuerdo a tu esquema de base de datos.
-
-Definición del modelo de ejemplo (`models/example_model.py`):
-
-```py
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column
-
-Base = declarative_base()
-
-class ExampleModel(Base):
-    __tablename__ = 'example_table'
-    id: Mapped[int] = mapped_column(primary_key=True)
-    username: Mapped[str] = mapped_column(unique=True)
-```
-
-## Trabajando con Datos
-
-Puedes colocar tus conjuntos de datos brutos en el directorio data/raw, conjuntos de datos intermedios en data/interim, y los conjuntos de datos procesados listos para el análisis en data/processed.
-
-Para procesar datos, puedes modificar el script app.py para incluir tus pasos de procesamiento de datos, utilizando pandas para la manipulación y análisis de datos.
-
-## Contribuyentes
-
-Esta plantilla fue construida como parte del [Data Science and Machine Learning Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning) de 4Geeks Academy por [Alejandro Sanchez](https://twitter.com/alesanchezr) y muchos otros contribuyentes. Descubre más sobre [los programas BootCamp de 4Geeks Academy](https://4geeksacademy.com/us/programs) aquí.
-
-Otras plantillas y recursos como este se pueden encontrar en la página de GitHub de la escuela.
+1. **Clonar el repositorio:**
+   ```bash
+   git clone [https://github.com/TU_USUARIO/TU_REPOSITORIO.git](https://github.com/TU_USUARIO/TU_REPOSITORIO.git)
+   cd TU_REPOSITORIO
