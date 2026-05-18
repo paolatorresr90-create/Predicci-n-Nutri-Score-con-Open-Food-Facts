@@ -3,7 +3,7 @@
 [![Streamlit App](https://static.streamlit.io/badge_github_white.svg)](https://share.streamlit.io/) ## 📝 Descripción del Proyecto
 Este proyecto presenta una aplicación web interactiva que automatiza la clasificación nutricional de alimentos utilizando **Inteligencia Artificial (Machine Learning)**. Basado en el sistema europeo *Nutri-Score*, el modelo analiza los componentes nutricionales por cada 100g de producto para predecir su categoría de calidad desde la **A** (Muy buena calidad) hasta la **E** (Baja calidad).
 
-### 🇨🇴 Adaptación al Contexto Colombiano
+### Adaptación al Contexto Colombiano
 A diferencia del sistema convencional europeo que requiere el dato estricto de sal en gramos, esta aplicación innova al permitir el ingreso directo de **Sodio en miligramos (mg)**, facilitando la lectura directa desde las tablas nutricionales reguladas en Colombia. El sistema realiza la conversión matemática en tiempo real para alimentar el algoritmo de predicción.
 
 ---
