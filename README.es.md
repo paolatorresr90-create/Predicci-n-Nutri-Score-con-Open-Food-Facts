@@ -1,6 +1,6 @@
 # 🥗 Nutri-Score AI Predictor
 
-[![Streamlit App](https://static.streamlit.io/badge_github_white.svg)](https://share.streamlit.io/) ## 📝 Descripción del Proyecto
+(https://predicci-n-nutri-score-con-open-food-facts-mh5at8ovrksmwdv78fa.streamlit.app/) ## 📝 Descripción del Proyecto
 Este proyecto presenta una aplicación web interactiva que automatiza la clasificación nutricional de alimentos utilizando **Inteligencia Artificial (Machine Learning)**. Basado en el sistema europeo *Nutri-Score*, el modelo analiza los componentes nutricionales por cada 100g de producto para predecir su categoría de calidad desde la **A** (Muy buena calidad) hasta la **E** (Baja calidad).
 
 ### Adaptación al Contexto Colombiano
@@ -56,5 +56,4 @@ Si deseas clonar y ejecutar este predictor de manera local, sigue estos pasos:
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone [https://github.com/TU_USUARIO/TU_REPOSITORIO.git](https://github.com/TU_USUARIO/TU_REPOSITORIO.git)
-   cd TU_REPOSITORIO
+   git clone (https://github.com/paolatorresr90-create/Predicci-n-Nutri-Score-con-Open-Food-Facts/)
